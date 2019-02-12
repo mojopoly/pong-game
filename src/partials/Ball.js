@@ -6,7 +6,8 @@ export default class Ball {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.direction = 1;
-        this.reset()
+        this.reset();
+        
     }
 reset() {
     this.x = this.boardWidth / 2;
@@ -58,9 +59,31 @@ paddleCollision(player1, player2) {
 }
 goal(player) {
     player.score ++;
-
     this.reset();
 }
+
+
+// ballFire(){
+//     document.addEventListener("keydown", event => {
+//         switch (event.key) {
+//           case fireBall:
+//           this.fireBall()
+
+//           break;
+//         }
+//       });
+// }
+// fireBall() {
+//     //console.log("KEYS.fireBall");
+//     this.x = this.player.x;
+//     this.y = this.player.y;
+//     this.vy=0;
+//     while (this.vy === 0 ){
+//     this.vy = Math.floor(Math.random() * 10 - 5);
+//     } //????????????????????????????????????
+//     this.vx = this.direction * (6 - Math.abs(this.vy));
+// }
+
 render(svg, player1, player2) {
     this.x += this.vx;
     this.y += this.vy;
@@ -70,6 +93,7 @@ render(svg, player1, player2) {
     circle.setAttributeNS(null, "fill", "white");
     circle.setAttributeNS(null, "cx", this.x);
     circle.setAttributeNS(null, "cy", this.y);
+    // this.ballFire();
     circle.setAttributeNS(null, "r", this.radius);
     svg.appendChild(circle);
 
@@ -84,12 +108,6 @@ render(svg, player1, player2) {
       this.goal(player2);
       this.direction = -1;
   }
-//   if (player1.score === 10) {
-//     alert('Player 1 won!');
-//     this.reset();
-//   } else if(player2.score === 10) {
-//     alert('Player 2 won!');
-//     this.reset();
-//   }
+
   }
 }

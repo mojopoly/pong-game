@@ -1,6 +1,6 @@
 import {SVG_NS} from '../settings';
 export default class Paddle {
-    constructor(boardHeight, width, height, x, y, up, down) {
+    constructor(boardHeight, width, height, x, y, up, down, upFast, downFast) {
       this.boardHeight = boardHeight;
       this.width = width;
       this.height = height;
@@ -12,14 +12,21 @@ export default class Paddle {
       document.addEventListener("keydown", event => {
         switch (event.key) {
           case up:
-          this.up()
+            this.up()
             console.log("up");
             // this.y = this.y - this.speed;
             break;
           case down:
-          this.down()
+            this.down()
             // this.y = this.y + this.speed;
             console.log("down");
+            break;
+          case upFast:
+          console.log("upFast");
+            this.upFast()
+            break;
+          case downFast:
+            this.downFast()
             break;
         }
       });
@@ -37,6 +44,15 @@ export default class Paddle {
       this.y = Math.min(this.y + this.speed,this.boardHeight - this.height)
 
     }
+    upFast() {
+      this.y=Math.max((this.y - this.speed),0)
+      this.speed =40;
+    }
+    downFast() {
+      this.y = Math.min(this.y + this.speed,this.boardHeight - this.height)
+      this.speed=40;
+    }
+
     coordinates(x, y, width, height) {
       let leftX = x;
       let rightX = x + width;

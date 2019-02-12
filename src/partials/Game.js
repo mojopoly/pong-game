@@ -31,7 +31,9 @@ export default class Game {
         ((this.height - this.paddleHeight) / 2), 
 
         KEYS.a, 
-        KEYS.z
+        KEYS.z,
+        KEYS.w,
+        KEYS.x
       );
       //Player 2
       this.player2 = new Paddle(
@@ -41,7 +43,9 @@ export default class Game {
         (this.width - this.boardGap - this.paddleWidth),
         ((this.height - this.paddleHeight) / 2),
         KEYS.up,
-        KEYS.down
+        KEYS.down,
+        KEYS.upFast,
+        KEYS.downFast
       );
       this.score1 = new Score(this.width/2 - 50, 30, 30);
       this.score2 = new Score(this.width/2 + 25, 30, 30);
@@ -54,12 +58,23 @@ export default class Game {
           break;
         }
       });
+
     }
 
   render() {
+    if (this.player1.score === 10) {
+      alert('Player 1 won!');
+      this.player1.score =0;
+      this.player2.score=0;
+    } else if(this.player2.score === 10) {
+      alert('Player 2 won!');
+      this.player1.score =0;
+      this.player2.score=0;
+    }
     if (this.pause) {
       this.player1.speed =0;
       this.player2.speed =0;
+
       return;
     }
     this.gameElement.innerHTML = "";
@@ -69,14 +84,11 @@ export default class Game {
     svg.setAttributeNS(null, "viewBox", `0 0 ${this.width} ${this.height}`);
     this.gameElement.appendChild(svg);
     this.board.render(svg);
-    // this.paddle.render(svg);
     this.player1.render(svg);
     this.player2.render(svg);
     this.ball.render(svg, this.player1, this.player2);
-
     this.score1.render(svg, this.player1.score);
     this.score2.render(svg, this.player2.score);
-
 
   }
 }
